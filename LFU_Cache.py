@@ -3,7 +3,7 @@ import requests
 from collections import OrderedDict
 
 
-def cache(max_limit=5):
+def cache(max_limit=64):
     def internal(f):
         @functools.wraps(f)
         def deco(*args, **kwargs):
