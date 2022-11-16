@@ -40,13 +40,4 @@ def fetch_url(url, first_n=100):
 
 if __name__ == '__main__':
     print(fetch_url('https://google.com'))
-    print(fetch_url('https://ithillel.ua'))
-    print(fetch_url('https://google.com'))
-    print(fetch_url('https://google.com'))
-    print(fetch_url('https://ithillel.ua'))
-    print(fetch_url('https://lms.ithillel.ua'))
-    print(fetch_url('https://github.com'))
-    print(fetch_url('https://github.com'))
-    print(fetch_url('https://github.com'))
-    print(fetch_url('https://github.com'))
-    print(fetch_url('https://lms.ithillel.ua'))
+
