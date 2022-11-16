@@ -4,16 +4,12 @@ import psutil
 
 
 def func_memory(func):
-    def get_process_memory():
-        process = psutil.Process()
-        return process.memory_info().rss
-
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
-
-        mem_before = get_process_memory()
+        process = psutil.Process()
+        mem_before = process.memory_info().rss
         result = func(*args, **kwargs)
-        mem_after = get_process_memory()
+        mem_after = process.memory_info().rss
         print(f'memory usage is {format((mem_after - mem_before)/1024/1024, ".2f")} MB')
 
         return result
