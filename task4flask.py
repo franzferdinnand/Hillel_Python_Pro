@@ -1,6 +1,7 @@
-from flask import Flask
+from flask import Flask, escape
 import pandas as pd
 import random
+import string
 
 app = Flask(__name__)
 
@@ -18,42 +19,33 @@ def main_page():
 
 @app.route('/password')
 def generate_password():
-    letters = [
-        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
-        'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D',
-        'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
-        'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-    ]
-    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-    symbols = ['!', '#', '$', '%', '&', '*']
-    password_list = []
-    num_of_chars = random.randint(10, 20)
+    letters_up = string.ascii_uppercase
+    letters_low = string.ascii_lowercase
+    digits = string.digits
+    spec_sym = string.punctuation
+    length = random.randint(10, 20)
+    password = []
 
-    for char in range(1, num_of_chars - 3):
-        password_list.append(random.choice(letters))
+    for _ in range(length):
+        password.append(random.choice(letters_up))
+        password.append(random.choice(letters_low))
+        password.append(random.choice(digits))
+        password.append(random.choice(spec_sym))
 
-    for char in range(1, num_of_chars - 5):
-        password_list.append(random.choice(numbers))
-
-    for char in range(1, num_of_chars - 7):
-        password_list.append(random.choice(symbols))
-
-    random.shuffle(password_list)
-
-    password_result = ''.join(password_list)
+    password_result = ''.join(password)
 
     return '<title>PASSWORD GENERATOR</title>' \
            '<h1>PASSWORD GENERATOR</h1>' \
            '<hr>' \
-           f'<p>Your password is: {password_result[:num_of_chars+1]}</p>' \
+           f'<p>Your password is: {escape(password_result[:length])}</p>' \
            '<a href=http://127.0.0.1:5001/password>Generate a new password</a><br>' \
            '<br>' \
            '<a href=http://127.0.0.1:5001>back to main page</a>'
 
+
 @app.route('/average')
 def average_params():
-    """Provide the right path to your hw.csv instead of /users/brian/Downloads/hw.csv"""
-    data = pd.read_csv('/users/brian/Downloads/hw.csv')
+    data = pd.read_csv('hw.csv')
     df = pd.DataFrame(data, columns=[' Height(Inches)', ' Weight(Pounds)'])
     height_average = df[' Height(Inches)'].mean()
     weight_average = df[' Weight(Pounds)'].mean()
@@ -68,4 +60,3 @@ def average_params():
 
 
 app.run(port=5001, debug=True)
-
