@@ -23,6 +23,6 @@ class colorizer:
         print(self.color_end, end='')
 
 
-with colorizer('black'):
+with colorizer('red'):
     print('printed in red')
 print('printed in default color')
