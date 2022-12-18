@@ -10,6 +10,7 @@ class Person:
         self.last_name = faked.last_name()
         self.books = 1
         self.knowledge_coefficient = 0
+
     def read_books(self):
         self.books += 1
 
