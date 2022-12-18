@@ -9,7 +9,7 @@ flask = "*"
 requests = "*"
 faker = "*"
 webargs = "*"
-selenium = "*"
+
 
 [dev-packages]
 
